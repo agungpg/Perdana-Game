@@ -1,6 +1,7 @@
 .container {
     height: 100vh;
-    width: 90vw;
+    width: 100vw;
+    /* margin-left: 5vw; */
     position: relative;
 }
 #start-btn {
@@ -16,10 +17,53 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 999;
+}
+.cntrl-btn{
+    display: none;
+    display: flex;
+    gap: 8px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 999;
+
+}
+#stop-btn {
+    display: none;
+    background-color: #FF6347;
+    padding: 10px 30px;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 600;
+    outline: none;
+    cursor: pointer;
+    border-radius: 8px;
+}
+#continue-btn {
+    display: none;
+    background-color: #007BFF;
+    padding: 10px 30px;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 600;
+    outline: none;
+    cursor: pointer;
+    border-radius: 8px;
+}
+#pause-btn {
+    display: none;
+    background-color: salmon;
+    padding: 10px 30px;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 600;
+    outline: none;
+    cursor: pointer;
+    border-radius: 8px;
 }
 .particle{
     position: absolute;
-    transition: linear 8s;
     height: 60px;
     width: 60px;
     border-radius: 60px;
@@ -49,7 +93,20 @@
     font-size: 6rem;
     color: #000;
     font-weight: bold;
-    top: -40px;
+    top: 0px;
     right: 20px;
     color: #FFD700;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+.final-score {
+    position: absolute; /* Position the child element absolutely */
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -100%); 
+    font-size: 15rem;
+    opacity: 0.5;
+    margin: 0;
+    padding: 0;
 }
