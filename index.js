@@ -10,6 +10,8 @@ const hexColors = [
     "#F39C12",  // Orange
     "#1ABC9C"   // Turquoise
 ];
+var lastDeduction = 0;
+const speed = 7000;
 const interval = 500;
 var gameIntervalPointer = undefined;
 var CONTAINER = undefined;
@@ -22,6 +24,7 @@ var gameState = 'notPlaying'
 const audio = new Audio('collision.mp3');
 var PARTICLESANIMATIONS = {};
 let counter = 0;
+var specialBall = false;
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -113,15 +116,13 @@ function throwParticles() {
                 { top: `${container.getBoundingClientRect().height + particle.getBoundingClientRect().height}px`}  // Keyframe 2
             ],
             {
-                duration: 5000, // Animation duration in ms
+                duration: speed-lastDeduction, // Animation duration in ms
                 easing: "linear",
                 iterations: 1,  // Number of times to repeat
             }
         )
-        console.log("before: ", PARTICLESANIMATIONS)
         const key = generateUniqueKey()
         PARTICLESANIMATIONS[key] = particleAnimation
-        console.log("after: ", PARTICLESANIMATIONS)
         particleAnimation.onfinish = () => {
             particle.remove();
             PARTICLESANIMATIONS[key].cancel();
@@ -129,7 +130,15 @@ function throwParticles() {
         }
 
         container.append(particle)
-        particle.addEventListener("click", breakParticle)
+        particle.addEventListener("click", (e) => {
+            if(e.target.dataset.color){
+                const particles = document.querySelectorAll(`[data-bgcolor='${e.target.dataset.color}']`)
+                particles.forEach((e) => breakParticle(e))
+                breakParticle(e)
+            } else {
+                breakParticle(e)
+            }
+        })
     }, interval)
 }
 
@@ -137,7 +146,15 @@ function createParticle() {
     const particle = createElement('div', 'particle', 'particle')
     const randomNumber = Math.floor(Math.random() * 10);
     const color = hexColors[randomNumber]
-    particle.style.backgroundColor = color;
+    if(specialBall) {
+        particle.style.border = `${color} 1px solid`;
+        particle.style.backgroundColor = `#fff`;
+        specialBall = false
+        particle.setAttribute('data-color', color)
+    } else {
+        particle.style.backgroundColor = color;
+        particle.setAttribute('data-bgcolor', color)
+    }
     const y = Math.floor(Math.random() * container.getBoundingClientRect().width+1)
     particle.style.left = `${(y + 60) > CONTAINER.getBoundingClientRect().width ? y - 72 : y}px`
     particle.style.top = `${-200}px`
@@ -149,9 +166,10 @@ function breakParticle(e) {
     if(gameState == 'pause') return;
 
     const particle = e.target ? e.target : e;
-    const color = particle.style.backgroundColor
+    const color = particle.dataset.color ?? particle.style.backgroundColor
     
     particle.style.backgroundColor = 'transparent'
+    particle.style.border = 'transparent'
     particle.classList.add('particle-crash-container');
     particle.style.top = `${particle.getBoundingClientRect().y}px`
     particle.style.left = `${particle.getBoundingClientRect().x}px`
@@ -195,6 +213,14 @@ function breakParticle(e) {
                 element.remove()
             }
         }, 1*index)
+    }
+    const deduction = Math.floor(parseInt(SCORE.textContent)/5)*100;
+    if(lastDeduction != deduction) {
+        lastDeduction = deduction;
+        clearInterval(gameIntervalPointer)
+        gameIntervalPointer = undefined;
+        specialBall = true
+        throwParticles()
     }
 }
 
