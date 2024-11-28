@@ -6,9 +6,9 @@
 }
 #start-btn {
     background-color: #90EE90;
-    padding: 10px 30px;
+    padding: 6px 18px;
     color: #fff;
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: 600;
     outline: none;
     cursor: pointer;
@@ -32,9 +32,9 @@
 #stop-btn {
     display: none;
     background-color: #FF6347;
-    padding: 10px 30px;
+    padding: 6px 18px;
     color: #fff;
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: 600;
     outline: none;
     cursor: pointer;
@@ -43,9 +43,9 @@
 #continue-btn {
     display: none;
     background-color: #007BFF;
-    padding: 10px 30px;
+    padding: 6px 18px;
     color: #fff;
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: 600;
     outline: none;
     cursor: pointer;
@@ -54,9 +54,9 @@
 #pause-btn {
     display: none;
     background-color: salmon;
-    padding: 10px 30px;
+    padding: 6px 18px;
     color: #fff;
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: 600;
     outline: none;
     cursor: pointer;
@@ -90,7 +90,7 @@
     display: none;
     z-index: 999;
     position: absolute;
-    font-size: 6rem;
+    font-size: 5rem;
     color: #000;
     font-weight: bold;
     top: 0px;
@@ -109,4 +109,23 @@
     opacity: 0.5;
     margin: 0;
     padding: 0;
+}
+.very-special-particle {
+    background-color: rgb(255, 223, 63); /* Background color */
+    box-shadow: 0 0 15px rgba(255, 223, 63, 0.8),
+                0 0 30px rgba(255, 223, 63, 0.6),
+                0 0 45px rgba(255, 223, 63, 0.4);
+}
+.life-container {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    row-gap: 12px;
+}
+.heart{
+    height: 24px;
+    width: 24px;
 }
