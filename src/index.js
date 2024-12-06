@@ -23,9 +23,9 @@ var CONTINUEBTN = undefined;
 var PAUSEBTN = undefined;
 var SCORE = undefined;
 var gameState = 'notPlaying'
-const audio = new Audio('collision.mp3');
-const mediumExplosionAudio = new Audio('medium-explosion.mp3');
-const explosionAudio = new Audio('explosion.mp3');
+const audio = new Audio('assets/audio/collision.mp3');
+const mediumExplosionAudio = new Audio('assets/audio/medium-explosion.mp3');
+const explosionAudio = new Audio('assets/audio/explosion.mp3');
 var PARTICLESANIMATIONS = {};
 let counter = 0;
 var specialParticle = false;
@@ -162,6 +162,19 @@ function throwParticles() {
         }
 
         container.append(particle)
+        particle.addEventListener('touchstart', (e) => {
+            if(e.target.dataset.color){
+                const particles = document.querySelectorAll(`[data-bgcolor='${e.target.dataset.color}']`)
+                particles.forEach((e) => breakParticle(e))
+                breakParticle(e)
+            } else {
+                console.log("e.target.style.backgroundColor: ", e.target.style.backgroundColor)
+                if(e.target.classList.contains("very-special-particle")) {
+                    document.querySelectorAll('.particle').forEach(ne =>  breakParticle(ne))
+                } 
+                breakParticle(e)
+            }
+        })
         particle.addEventListener("click", (e) => {
             if(e.target.dataset.color){
                 const particles = document.querySelectorAll(`[data-bgcolor='${e.target.dataset.color}']`)
