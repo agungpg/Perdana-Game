@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function generateLifeHeart() {
     for (let index = 0; index < 10; index++) {
         const haert = createElement('img', `heart-${index+1}`, 'heart')
-        haert.src = 'heart.png'
+        haert.src = './src/assets/icons/heart.png'
         LIFECONTAINER.append(haert)
     }
 }
